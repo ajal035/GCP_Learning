@@ -3,7 +3,7 @@ Task - 1 : Total Confirmed Cases
 
 SELECT sum(cumulative_confirmed) as total_cases_worldwide
 FROM `bigquery-public-data.covid19_open_data.covid19_open_data`
-WHERE date='2020-04-15'
+WHERE date='2020-06-15'
 
 
 
@@ -13,7 +13,7 @@ Task - 2 : Worst Affected Areas
 with deaths_by_states as (
     SELECT subregion1_name as state, sum(cumulative_deceased) as death_count
     FROM `bigquery-public-data.covid19_open_data.covid19_open_data`
-    where country_name="United States of America" and date='2020-04-10' and subregion1_name is NOT NULL
+    where country_name="United States of America" and date='2020-06-15' and subregion1_name is NOT NULL
     group by subregion1_name
 )
 select count(*) as count_of_states
@@ -28,11 +28,11 @@ Task - 3 : Identifying Hotspots
 SELECT * FROM (
     SELECT subregion1_name as state, sum(cumulative_confirmed) as total_confirmed_cases
     FROM `bigquery-public-data.covid19_open_data.covid19_open_data`
-    WHERE country_code="US" AND date='2020-04-10' AND subregion1_name is NOT NULL
+    WHERE country_code="US" AND date='2020-06-15' AND subregion1_name is NOT NULL
     GROUP BY subregion1_name
     ORDER BY total_confirmed_cases DESC
 )
-WHERE total_confirmed_cases > 1000
+WHERE total_confirmed_cases > 2500
 
 
 
@@ -41,7 +41,7 @@ Task - 4 : Fatality Ratio
 
 SELECT sum(cumulative_confirmed) as total_confirmed_cases, sum(cumulative_deceased) as total_deaths, (sum(cumulative_deceased)/sum(cumulative_confirmed))*100 as case_fatality_ratio
 FROM `bigquery-public-data.covid19_open_data.covid19_open_data`
-where country_name="Italy" AND date BETWEEN '2020-04-01'and '2020-04-30'
+where country_name="Italy" AND date BETWEEN '2020-06-01'and '2020-06-30'
 
 
 Task - 5 : Identifying specific day
@@ -49,7 +49,7 @@ Task - 5 : Identifying specific day
 
 SELECT date
 FROM `bigquery-public-data.covid19_open_data.covid19_open_data`
-where country_name="Italy" and cumulative_deceased>10000
+where country_name="Italy" and cumulative_deceased>12000
 order by date asc
 limit 1
 
@@ -66,7 +66,7 @@ WITH india_cases_by_date AS (
     `bigquery-public-data.covid19_open_data.covid19_open_data`
   WHERE
     country_name ="India"
-    AND date between '2020-02-21' and '2020-03-15'
+    AND date between '2020-02-25' and '2020-03-14'
   GROUP BY
     date
   ORDER BY
@@ -116,7 +116,7 @@ FROM us_cases_by_date
 
 select Date, cases as Confirmed_Cases_On_Day, previous_day as Confirmed_Cases_Previous_Day, percentage_increase as Percentage_Increase_In_Cases
 from us_previous_day_comparison
-where percentage_increase > 10
+where percentage_increase > 15
 
 
 
@@ -148,7 +148,7 @@ SELECT country, cases AS confirmed_cases, recovered_cases, recovery_rate
 FROM recovered_rate
 WHERE cases > 50000
 ORDER BY recovery_rate desc
-LIMIT 10
+LIMIT 15
 
 
 
@@ -193,7 +193,7 @@ SELECT
 FROM
   `bigquery-public-data.covid19_open_data.covid19_open_data`
 WHERE
-  date BETWEEN '2020-03-15'
-  AND '2020-04-30'
+  date BETWEEN '2020-03-25'
+  AND '2020-04-16'
   AND country_name ="United States of America"
 GROUP BY date
