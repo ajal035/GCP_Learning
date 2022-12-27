@@ -32,7 +32,8 @@ gcloud sql instances create griffin-dev-db --root-password password --region=us-
 gcloud sql connect griffin-dev-db
 
 CREATE DATABASE wordpress;
-GRANT ALL PRIVILEGES ON wordpress.* TO "wp_user"@"%" IDENTIFIED BY "stormwind_rules";
+CREATE USER "wp_user"@"%" IDENTIFIED BY "stormwind_rules";
+GRANT ALL PRIVILEGES ON wordpress.* TO "wp_user"@"%";
 FLUSH PRIVILEGES;
 
 exit
@@ -79,10 +80,13 @@ Task - 7 : Create a WordPress deployment
 
 kubectl create -f wp-deployment.yaml
 kubectl create -f wp-service.yaml
+
 Task - 8 : Enable monitoring
+====================================
+
 // Navigation Menu -> Kubernetes Engine -> Services and Ingress -> Copy Endpoint's address.
 
-// Navigation Menu -> Monitoring -> Uptime Checks -> + CREATE UPTIME CHECK Title : Wordpress Uptime // Next -> Target Hostname : {Endpoint's address} (without http...) Path : / // Next -> Next -> Create
+// Navigation Menu -> Monitoring -> Uptime Checks -> + CREATE UPTIME CHECK Title : Wordpress Uptime // Next -> Target Hostname : without http  Path : / // Next -> Next -> Create
 
 Task - 9 : Provide access for an additional engineer :-
 =============================================================
