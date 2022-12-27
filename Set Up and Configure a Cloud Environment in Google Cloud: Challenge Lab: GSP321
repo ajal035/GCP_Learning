@@ -11,8 +11,8 @@ Task - 2 : Create production VPC manually
 =========================================================
 
 gcloud compute networks create griffin-prod-vpc --subnet-mode custom
-gcloud compute networks subnets create griffin-prod-wp --network=griffin-dev-vpc --region us-east1 --range=192.168.48.0/20
-gcloud compute networks subnets create griffin-prod-mgmt --network=griffin-dev-vpc --region us-east1 --range=192.168.64.0/20
+gcloud compute networks subnets create griffin-prod-wp --network=griffin-prod-vpc --region us-east1 --range=192.168.48.0/20
+gcloud compute networks subnets create griffin-prod-mgmt --network=griffin-prod-vpc --region us-east1 --range=192.168.64.0/20
 
 
 
