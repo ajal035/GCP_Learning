@@ -274,7 +274,7 @@ module "vpc" {
     source  = "terraform-google-modules/network/google"
     version = "~> <FILL IN VERSION NUMBER>"
 
-    project_id   = "qwiklabs-gcp-04-f2c1c01a09d3"
+    project_id   = "<FILL IN PROJECT ID>"
     network_name = "<FILL IN NETWORK NAME>"
     routing_mode = "GLOBAL"
 
@@ -303,7 +303,6 @@ Navigate to modules/instances/instances.tf. Replace the entire contents of the f
 resource "google_compute_instance" "tf-instance-1" {
   name         = "tf-instance-1"
   machine_type = "n1-standard-2"
-  zone         = "us-central1-a"
   allow_stopping_for_update = true
 
   boot_disk {
@@ -321,7 +320,6 @@ resource "google_compute_instance" "tf-instance-1" {
 resource "google_compute_instance" "tf-instance-2" {
   name         = "tf-instance-2"
   machine_type = "n1-standard-2"
-  zone         = "us-central1-a"
   allow_stopping_for_update = true
 
   boot_disk {
@@ -341,6 +339,8 @@ terraform init
 terraform apply
 
 TASK 6: Configure a firewall
+===============================================
+
 Add the following resource to the main.tf file, fill in the GCP Project ID and Network Name:
 
 resource "google_compute_firewall" "tf-firewall" {
