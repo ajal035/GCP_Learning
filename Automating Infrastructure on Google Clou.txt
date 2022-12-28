@@ -18,7 +18,9 @@ touch storage.tf
 touch outputs.tf
 touch variables.tf
 cd
+
 Add the following to the each variables.tf file, and fill in the GCP Project ID & region/zone:
+========================================================================================
 
 variable "region" {
  default = "<FILL IN REGION>"
@@ -31,7 +33,11 @@ variable "zone" {
 variable "project_id" {
  default = "<FILL IN PROJECT ID>"
 }
+
+
 Add the following to the main.tf file:
+===============================================
+
 
 terraform {
   required_providers {
@@ -57,6 +63,8 @@ Run "terraform init" in Cloud Shell in the root directory to initialize terrafor
 terraform init
 
 TASK 1: Import infrastructure
+=========================================
+
 Navigate to Compute Engine > VM Instances. Click on tf-instance-1. Copy the Instance ID down somewhere to use later.
 Navigate to Compute Engine > VM Instances. Click on tf-instance-2. Copy the Instance ID down somewhere to use later.
 Next, navigate to modules/instances/instances.tf. Copy the following configuration into the file:
@@ -114,6 +122,8 @@ terraform plan
 terraform apply
 
 TASK 2: Configure a remote backend
+==================================================
+
 Add the following code to the modules/storage/storage.tf file, and fill in the Bucket Name:
 
 resource "google_storage_bucket" "storage-bucket" {
@@ -150,6 +160,8 @@ Run the following to initialize the remote backend. Type yes at the prompt.
 terraform init
 
 TASK 3: Modify and update infrastructure
+======================================================
+
 Navigate to modules/instances/instance.tf. Replace the entire contents of the file with the following, and fill in your Instance 3 ID:
 
 resource "google_compute_instance" "tf-instance-1" {
@@ -208,6 +220,8 @@ terraform init
 terraform apply
 
 TASK 4: Taint and destroy resources
+=====================================================
+
 Taint the tf-instance-3 resource by running the following command, and fill in your Instance 3 ID:
 
 terraform taint module.instances.google_compute_instance.<FILL IN INSTANCE 3 NAME>
@@ -237,7 +251,10 @@ Run the following commands to apply the changes. Type yes at the prompt.
 
 terraform apply
 
+
 TASK 5: Use a module from the Registry
+================================================
+
 Copy and paste the following to the end of main.tf file, fill in Version Number and Network Name instructed in the challenge:
 
 module "vpc" {
