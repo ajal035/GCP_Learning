@@ -1,14 +1,5 @@
 Task 1: Create a project jumphost instance
-Run command:
-
-gcloud compute instances create <Fill the host name >\
-          --network nucleus-vpc \
-          --zone us-east1-b  \
-          --machine-type f1-micro  \
-          --image-family debian-9  \
-          --image-project debian-cloud \
-          --scopes cloud-platform \
-          --no-address
+please follow the instuction and crate the instacne through console
 
           
 Task 2: Create a Kubernetes service cluster
