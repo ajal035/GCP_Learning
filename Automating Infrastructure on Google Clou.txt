@@ -141,11 +141,11 @@ Run the following commands to initialize the module and create the storage bucke
 
 terraform init
 terraform apply
-Next, update the main.tf file so that the terraform block looks like the following. Fill in your GCP Project ID for the bucket argument definition.
+Next, update the main.tf file so that the terraform block looks like the following. Fill in your bucket name in for the bucket argument definition.
 
 terraform {
   backend "gcs" {
-    bucket  = "<FILL IN PROJECT ID>"
+    bucket  = "<FILL IN Bucket Name>"
  prefix  = "terraform/state"
   }
   required_providers {
@@ -167,8 +167,6 @@ Navigate to modules/instances/instance.tf. Replace the entire contents of the fi
 resource "google_compute_instance" "tf-instance-1" {
   name         = "tf-instance-1"
   machine_type = "n1-standard-2"
-  zone         = "us-central1-a"
-  allow_stopping_for_update = true
 
   boot_disk {
     initialize_params {
@@ -179,13 +177,17 @@ resource "google_compute_instance" "tf-instance-1" {
   network_interface {
  network = "default"
   }
+
+metadata_startup_script = <<-EOT
+#!/bin/bash
+EOT
+
+allow_stopping_for_update = true
 }
 
 resource "google_compute_instance" "tf-instance-2" {
   name         = "tf-instance-2"
   machine_type = "n1-standard-2"
-  zone         = "us-central1-a"
-  allow_stopping_for_update = true
 
   boot_disk {
     initialize_params {
@@ -196,13 +198,17 @@ resource "google_compute_instance" "tf-instance-2" {
   network_interface {
  network = "default"
   }
+
+metadata_startup_script = <<-EOT
+#!/bin/bash
+EOT
+
+allow_stopping_for_update = true
 }
 
-resource "google_compute_instance" "<FILL IN INSTANCE 3 NAME>" {
-  name         = "<FILL IN INSTANCE 3 NAME>"
+resource "google_compute_instance" "<FILL IN THE INTANCE NAME>" {
+  name         = "<FILL IN THE INTANCE NAME>"
   machine_type = "n1-standard-2"
-  zone         = "us-central1-a"
-  allow_stopping_for_update = true
 
   boot_disk {
     initialize_params {
@@ -213,7 +219,14 @@ resource "google_compute_instance" "<FILL IN INSTANCE 3 NAME>" {
   network_interface {
  network = "default"
   }
+
+metadata_startup_script = <<-EOT
+#!/bin/bash
+EOT
+
+allow_stopping_for_update = true
 }
+
 Run the following commands to initialize the module and create/update the instance resources. Type yes at the dialogue after you run the apply command to accept the state changes.
 
 terraform init
