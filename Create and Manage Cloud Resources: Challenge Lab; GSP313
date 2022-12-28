@@ -1,9 +1,11 @@
 Task 1: Create a project jumphost instance
+================================================
+
 please follow the instuction and crate the instacne through console
 
           
 Task 2: Create a Kubernetes service cluster
-Run command:
+==========================================
 
 gcloud container clusters create nucleus-backend \
           --num-nodes 1 \
@@ -19,8 +21,9 @@ kubectl expose deployment hello-server \
           --type=LoadBalancer \
           --port <Fill in the post number>
 
+
 Task 3: Set up an HTTP load balancer
-Run command:
+=============================================
 
 cat << EOF > startup.sh
 #! /bin/bash
@@ -45,7 +48,7 @@ gcloud compute instance-groups managed create web-server-group \
           --region us-east1
 
 
-gcloud compute firewall-rules create web-server-firewall \
+gcloud compute firewall-rules create <FILL IN FIREWALL RULE> \
           --allow tcp:80 \
           --network nucleus-vpc
           
